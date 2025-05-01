@@ -9,7 +9,7 @@
 
 ### Improvement ideas
 
-- [] Set up service or custom hooks to improve data fetching structure
+- [x] Set up service or custom hooks to improve data fetching structure
 - [x] Filter using the database instead of the front end
 - [] Add better error logging. Replace console.errors with Pino or other logging library
 - [] Add testing framework

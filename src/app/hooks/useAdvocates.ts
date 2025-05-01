@@ -17,6 +17,5 @@ type Advocate = {
 export const useAdvocates = (searchTerm: string | null) => {
     const query = searchTerm ? `?search=${encodeURIComponent(searchTerm)}` : "";
     const { data, error, isLoading } = useSWR<{data: Advocate[]}>(`/api/advocates${query}`, fetcher);
-    console.log('data', data)
     return { advocates: data?.data || [], advocatesError: error, advocatesAreLoading: isLoading };
   };
