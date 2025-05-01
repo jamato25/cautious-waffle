@@ -3,9 +3,11 @@
 - [x] Remove getElementById
 - [x] Remove console logs on the browser and especially the log with environment variables
 - [] Add node version and postgres version
-- [] Fix FE hydration issue with table
+- [x] Fix FE hydration issue with table
 - [x] Fix searching error -> This can just be fixed when I move filtering to the db
 - [] There is no typing even though these are ts files
+- [x] Using line breaks instead of css spacing
+- [x] Inline styling, no classes (Used MUI here to save time but whatever the styling framework is would work)
 
 ### Improvement ideas
 
@@ -16,10 +18,10 @@
 
 ### UI Improvements
 
-- [] Loader for searching, filtering a data loading
-- [] Bring in a Table component from a library for sorting, aesthetic and column movement (MUI)
-- [] Search bar styling
-- [] Title and page layout
+- [x] Loader for searching, filtering a data loading
+- [x] Bring in a Table component from a library (MUI)
+- [x] Search bar styling
+- [x] Title and page layout
 - [] Add filtering capability. Could be good to have a filter drawer or something similar. - I think this is important for this application because usually people need a specific kind of doctor. They are probably not browsing.
 - [] Add pagination
 
@@ -38,3 +40,13 @@ Database schema:
     - I think University/ Medical School is probably a more accessible data point for most people
     - Could change this to level of education? Something that makes it easier to understand
 - Advocates should have an updatedAt field.
+
+### Improvements with more time
+
+- Add in theme color to make the page more aesthetic
+- Phone number formatting
+- Pagination and filtering
+- Add in skeleton for loading so there is less content shifting
+- Add in a component for when no advocates are found after filtering. Right now it looks a bit blank
+- More responsive design. This works but for now but needs to be improved for mobile views.
+- Update schema to have a n:n Specialty table.

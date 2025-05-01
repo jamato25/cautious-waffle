@@ -2,6 +2,24 @@
 
 import { useState } from "react";
 import { useAdvocates } from "./hooks/useAdvocates";
+import {
+  Box,
+  Button,
+  Chip,
+  CircularProgress,
+  Container,
+  Paper,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -14,55 +32,107 @@ export default function Home() {
     setSearchTerm(e.target.value);
   };
 
-  const onClick = () => {
+  const handleSearch = () => {
     setSubmittedSearch(searchTerm);
   };
 
+  const handleReset = () => {
+    setSearchTerm("");
+    setSubmittedSearch(null);
+  };
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleSearch();
+  };
+
+  const TABLE_HEADERS = [
+    "First Name",
+    "Last Name",
+    "City",
+    "Degree",
+    "Specialties",
+    "Years of Experience",
+    "Phone Number",
+  ];
+
   return (
-    <main style={{ margin: "24px" }}>
-      <h1>Solace Advocates</h1>
-      <br />
-      <br />
-      <div>
-        <p>Search</p>
-        <p>
-          Searching for: <span>{searchTerm}</span>
-        </p>
-        <input style={{ border: "1px solid black" }} onChange={onChange} />
-        <button onClick={onClick}>Reset Search</button>
-      </div>
-      <br />
-      <br />
-      <table>
-        <thead>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>City</th>
-          <th>Degree</th>
-          <th>Specialties</th>
-          <th>Years of Experience</th>
-          <th>Phone Number</th>
-        </thead>
-        <tbody>
-          {advocates.map((advocate) => {
-            return (
-              <tr>
-                <td>{advocate.firstName}</td>
-                <td>{advocate.lastName}</td>
-                <td>{advocate.city}</td>
-                <td>{advocate.degree}</td>
-                <td>
-                  {advocate.specialties.map((s) => (
-                    <div>{s}</div>
+    <Container maxWidth="lg" sx={{ py: 4 }}>
+      <Typography variant="h4" gutterBottom>
+        Solace Advocates
+      </Typography>
+      <Box
+        component="form"
+        onSubmit={onSubmit}
+        sx={{ display: "flex", gap: 2, mb: 3, flexWrap: "wrap" }}
+      >
+        <TextField
+          label="Search for an advocate"
+          variant="outlined"
+          size="small"
+          value={searchTerm}
+          onChange={onChange}
+          sx={{ flexGrow: 1, minWidth: 240 }}
+        />
+        <Box sx={{ display: "flex", gap: 2, mb: 3 }}>
+          <Button variant="contained" onClick={handleSearch}>
+            Search
+          </Button>
+          <Button variant="outlined" onClick={handleReset}>
+            Reset
+          </Button>
+        </Box>
+      </Box>
+      {advocatesAreLoading && (
+        <Box textAlign="center" my={4}>
+          <CircularProgress />
+        </Box>
+      )}
+      {!advocatesAreLoading && (
+        <Paper>
+          <TableContainer>
+            <Table stickyHeader aria-label="solace advocates">
+              <TableHead>
+                <TableRow>
+                  {TABLE_HEADERS.map((header) => (
+                    <TableCell
+                      key={header}
+                      sx={{ fontWeight: "bold", backgroundColor: "grey.100" }}
+                    >
+                      {header}
+                    </TableCell>
                   ))}
-                </td>
-                <td>{advocate.yearsOfExperience}</td>
-                <td>{advocate.phoneNumber}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </main>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {advocates.map((advocate) => {
+                  return (
+                    <TableRow key={advocate.id} hover>
+                      <TableCell>{advocate.firstName}</TableCell>
+                      <TableCell>{advocate.lastName}</TableCell>
+                      <TableCell>{advocate.city}</TableCell>
+                      <TableCell>{advocate.degree}</TableCell>
+                      <TableCell>
+                        <Stack direction="row" flexWrap="wrap" gap={1}>
+                          {advocate.specialties.map((specialty) => (
+                            <Chip
+                              key={specialty}
+                              label={specialty}
+                              size="small"
+                            />
+                          ))}
+                        </Stack>
+                      </TableCell>
+                      <TableCell>{advocate.yearsOfExperience}</TableCell>
+                      <TableCell>{advocate.phoneNumber}</TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Paper>
+      )}
+    </Container>
   );
 }
