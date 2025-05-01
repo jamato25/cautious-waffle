@@ -1,16 +1,16 @@
 ### Glaring issues/ Easy fixes
 
-- [] Remove getElementById
-- [] Remove console logs on the browser and especially the log with environment variables
+- [x] Remove getElementById
+- [x] Remove console logs on the browser and especially the log with environment variables
 - [] Add node version and postgres version
 - [] Fix FE hydration issue with table
-- [] Fix searching error -> This can just be fixed when I move filtering to the db
+- [x] Fix searching error -> This can just be fixed when I move filtering to the db
 - [] There is no typing even though these are ts files
 
 ### Improvement ideas
 
 - [] Set up service or custom hooks to improve data fetching structure
-- [] Filter using the database instead of the front end
+- [x] Filter using the database instead of the front end
 - [] Add better error logging. Replace console.errors with Pino or other logging library
 - [] Add testing framework
 
