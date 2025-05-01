@@ -1,31 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useAdvocates } from "./hooks/useAdvocates";
 
 export default function Home() {
-  const [advocates, setAdvocates] = useState([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [submittedSearch, setSubmittedSearch] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetch(`/api/advocates`).then((response) => {
-      response.json().then((jsonResponse) => {
-        setAdvocates(jsonResponse.data);
-      });
-    });
-  }, [searchTerm]);
+  const { advocates, advocatesAreLoading, advocatesError } =
+    useAdvocates(submittedSearch);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
 
   const onClick = () => {
-    fetch(`/api/advocates?search=${encodeURIComponent(searchTerm)}`).then(
-      (response) => {
-        response.json().then((jsonResponse) => {
-          setAdvocates(jsonResponse.data);
-        });
-      }
-    );
+    setSubmittedSearch(searchTerm);
   };
 
   return (
